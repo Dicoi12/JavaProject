@@ -43,4 +43,5 @@ public class ElearningComponentRepository extends GenericRepository<ElearningCom
         jdbcTemplate.update(sql, ec.getName(), ec.getImageUrl(), ec.getDescription(), ec.getDuration(), ec.getType(), ec.getCategoryId(), ec.getStartDate(), ec.getEndDate(), ec.getId());
         return ec;
     }
+
 } 

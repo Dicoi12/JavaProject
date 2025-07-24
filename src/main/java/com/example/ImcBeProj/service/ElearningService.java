@@ -3,6 +3,9 @@ package com.example.ImcBeProj.service;
 import com.example.ImcBeProj.models.ElearningComponent;
 import com.example.ImcBeProj.models.ElearningUser;
 import com.example.ImcBeProj.models.User;
+import com.example.ImcBeProj.models.dtos.BasicFilter;
+import com.example.ImcBeProj.models.dtos.ElearningComponentDto;
+import com.example.ImcBeProj.models.dtos.ElearningForUserDto;
 import com.example.ImcBeProj.repositories.ElearningComponentRepository;
 import com.example.ImcBeProj.repositories.ElearningUserRepository;
 import com.example.ImcBeProj.repositories.UserRepository;
@@ -18,25 +21,27 @@ import java.util.Optional;
 public class ElearningService {
     private final UserService userService;
     private final ElearningUserRepository elearningUserRepository;
-    private final ElearningComponentRepository elearningComponentRepository;
 //sau autowired
-    public ElearningService(UserService userService, ElearningUserRepository elearningUserRepository, ElearningComponentRepository elearningComponentRepository) {
+    public ElearningService(UserService userService, ElearningUserRepository elearningUserRepository) {
         this.userService = userService;
         this.elearningUserRepository = elearningUserRepository;
-        this.elearningComponentRepository = elearningComponentRepository;
     }
 
-    public List<ElearningComponent> getElearningForLoggedUser() {
+    public List<ElearningForUserDto> getElearningForLoggedUser(BasicFilter filter) {
         Optional<User> userOpt = userService.getCurrentUser();
         if (userOpt.isEmpty()) {
             return new ArrayList<>();
         }
         User user = userOpt.get();
-        List<ElearningUser> elearningUsers = elearningUserRepository.findByUserId(user.getId());
-        List<ElearningComponent> result = new ArrayList<>();
-        for (ElearningUser eu : elearningUsers) {
-            elearningComponentRepository.findById(eu.getElearningId()).ifPresent(result::add);
+        return elearningUserRepository.getUserElearnings(user.getId(),filter.getPageNumber(),filter.getPageSize());
+    }
+
+    public Optional<ElearningComponentDto> getSpecificElearningForLoggedUser(String eLearningId) {
+        Optional<User> userOpt = userService.getCurrentUser();
+        if (userOpt.isEmpty()) {
+            return null;
         }
-        return result;
+        User user = userOpt.get();
+        return elearningUserRepository.getUserSpecificElearning(user.getId(),eLearningId);
     }
 } 

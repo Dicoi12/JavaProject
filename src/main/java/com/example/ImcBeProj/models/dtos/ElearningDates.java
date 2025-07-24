@@ -1,12 +1,16 @@
 package com.example.ImcBeProj.models.dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.time.OffsetDateTime;
 
-public class AssignedUserDates {
+public class ElearningDates {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private OffsetDateTime startDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private OffsetDateTime endDate;
 
-    public AssignedUserDates(OffsetDateTime startDate, OffsetDateTime endDate) {
+    public ElearningDates(OffsetDateTime startDate, OffsetDateTime endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }

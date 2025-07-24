@@ -4,11 +4,11 @@ public class ElearningForUserDto {
     private String id;
     private String name;
     private String type;
-    private AssignedUserDates assignedDates;
+    private ElearningDates assignedDates;
     private String userStatus;
     private String imageUrl;
 
-    public ElearningForUserDto(String id, String name, String type, AssignedUserDates assignedDates, String userStatus, String imageUrl) {
+    public ElearningForUserDto(String id, String name, String type, ElearningDates assignedDates, String userStatus, String imageUrl) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -41,11 +41,11 @@ public class ElearningForUserDto {
         this.type = type;
     }
 
-    public AssignedUserDates getAssignedDates() {
+    public ElearningDates getAssignedDates() {
         return assignedDates;
     }
 
-    public void setAssignedDates(AssignedUserDates assignedDates) {
+    public void setAssignedDates(ElearningDates assignedDates) {
         this.assignedDates = assignedDates;
     }
 
