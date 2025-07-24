@@ -21,7 +21,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public int createUser(User user) {
+    public User createUser(User user) {
         String password=user.getPassword();
         user.setPassword(passwordEncoder.encode(password));
         return userRepository.save(user);
@@ -49,5 +49,11 @@ public class UserService {
             throw new RuntimeException("Username sau parola incorecte");
         }
         return jwtUtil.generateToken(user.getUsername());
+    }
+
+    public Optional<User> getCurrentUser() {
+        org.springframework.security.core.Authentication authentication = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return findByUsername(username);
     }
 }

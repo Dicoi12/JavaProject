@@ -7,6 +7,7 @@ public class Category {
     private Short id;
     private String name;
 
+    public Category(){}
     public Category(String name, Short id) {
         this.name = name;
         this.id = id;

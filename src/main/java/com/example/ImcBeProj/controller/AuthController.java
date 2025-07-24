@@ -2,6 +2,7 @@ package com.example.ImcBeProj.controller;
 
 import com.example.ImcBeProj.models.User;
 import com.example.ImcBeProj.models.dtos.LoginRequest;
+import com.example.ImcBeProj.models.dtos.RegisterRequest;
 import com.example.ImcBeProj.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +21,9 @@ public class AuthController {
     public String login(@RequestBody LoginRequest loginRequest) {
         return userService.login(loginRequest);
     }
-    @PostMapping("/auth")
-    public int createUser(@RequestBody User user){
-        return userService.createUser(user);
+
+    @PostMapping("/register")
+    public User createUser(@RequestBody RegisterRequest register){
+        return userService.createUser(new User(0,register.getUsername(), register.getPassword()));
     }
 }
